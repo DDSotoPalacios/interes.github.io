@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Intereses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        label, input, select, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Calculadora de Interés Simple y Compuesto</h2>
+
+    <div class="form-container">
+        <label for="capital">Capital Inicial (USD):</label>
+        <input type="number" id="capital" placeholder="Ingrese el capital inicial">
+
+        <label for="rate">Tasa de Interés Anual (%):</label>
+        <input type="number" id="rate" placeholder="Ingrese la tasa de interés anual">
+
+        <label for="time">Tiempo en Años:</label>
+        <input type="number" id="time" placeholder="Ingrese el tiempo en años">
+
+        <label for="interest-type">Tipo de Interés:</label>
+        <select id="interest-type">
+            <option value="simple">Simple</option>
+            <option value="compuesto">Compuesto</option>
+        </select>
+
+        <button id="calcular-btn">Calcular</button>
+
+        <div class="result" id="result" aria-live="polite"></div>
+    </div>
+
+    <script>
+        document.getElementById("calcular-btn").addEventListener("click", calcularInteres);
+
+        function calcularInteres() {
+            var capital = parseFloat(document.getElementById("capital").value);
+            var tasa = parseFloat(document.getElementById("rate").value) / 100;
+            var tiempo = parseFloat(document.getElementById("time").value);
+            var tipoInteres = document.getElementById("interest-type").value;
+            var resultado;
+
+            if (isNaN(capital) || isNaN(tasa) || isNaN(tiempo)) {
+                alert("Por favor, complete todos los campos.");
+                return;
+            }
+
+            if (tipoInteres === "simple") {
+                resultado = capital * (1 + tasa * tiempo);
+            } else if (tipoInteres === "compuesto") {
+                resultado = capital * Math.pow((1 + tasa), tiempo);
+            }
+
+            document.getElementById("result").innerHTML = "El monto final es: " + resultado.toFixed(2) + " USD";
+        }
+    </script>
+
+</body>
+</html>
